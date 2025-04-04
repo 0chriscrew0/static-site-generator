@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -21,6 +21,18 @@ class TestHTMLNode(unittest.TestCase):
         expected2 = ' src="/" alt="this is an image"'
         self.assertEqual(node.props_to_html(), expected1)
         self.assertEqual(node2.props_to_html(), expected2)
+
+    def test_leaf_to_html_p(self):
+        node = LeafNode("p", "Hello, world!")
+        self.assertEqual(node.to_html(), "<p>Hello, world!</p>")
+
+    def test_leaf_to_html_a(self):
+        node = LeafNode("a", "Click me!", {"href": "https://www.google.com"})
+        self.assertEqual(node.to_html(), '<a href="https://www.google.com">Click me!</a>')
+
+    def test_leaf_to_html_h1(self):
+        node = LeafNode("h1", "Heading", {"class": "heading"})
+        self.assertEqual(node.to_html(), '<h1 class="heading">Heading</h1>')
 
 
 
